@@ -33,7 +33,7 @@ public class WrapperPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		Rectangle parentBounds = parentFrame.getScreen().getBounds();
 		bounds.width = parentBounds.width;
 		bounds.height = parentBounds.height;

@@ -14,31 +14,27 @@ import tomas.garza.nodeflow.ui.WrapperFrame;
  */
 public class Main {
 
-	
 	/**
 	 * Método principal
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+			public void run() {
 
-            	// Busca las pantallas de este sistema
-                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                GraphicsDevice[] gs = ge.getScreenDevices();
-                for (GraphicsDevice screen : gs) {
-                	// Crea un frame por cada pantalla
-                    new WrapperFrame(new PhysicalDisplay(screen)).setVisible(true);
-                }
+				// Busca las pantallas de este sistema
+				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				GraphicsDevice[] gs = ge.getScreenDevices();
+				for (GraphicsDevice screen : gs) {
+					// Crea un frame por cada pantalla
+					new WrapperFrame(new PhysicalDisplay(screen)).setVisible(true);
+				}
 
-            }
-        });
-		
+			}
+		});
+
 	}
-	
-	
-	
+
 }
