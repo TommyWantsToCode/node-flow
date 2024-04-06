@@ -4,15 +4,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Utility class for encoding Strings
+ * Clase de utilidades para codificar Strings
  */
 public class EncoderUtils {
 
 	/**
-	 * Encodes a String to mdg5
+	 * Codigica un String a MD5
 	 * 
 	 * @param input
-	 * @return the md5 encoded String
+	 * @return el String codificado en MD5
 	 */
 	public static String toMD5(String input) {
 		try {
@@ -33,10 +33,10 @@ public class EncoderUtils {
 	}
 
 	/**
-	 * Encodes a String to base64
+	 * Codifica un String a Base64
 	 * 
 	 * @param input
-	 * @return the base64 encoded String
+	 * @return el String codificado en Base64
 	 */
 	public static String toBase64(String input) {
 		return java.util.Base64.getEncoder().encodeToString(input.getBytes());

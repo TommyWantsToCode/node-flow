@@ -4,6 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JWindow;
 
@@ -22,6 +24,8 @@ public class WrapperFrame extends JWindow {
 
 	private PhysicalDisplay screen;
 	private WrapperPanel wrapperPanel;
+	
+	private List<BezierCurve> curves;
 
 	/**
 	 * Constructor
@@ -31,6 +35,7 @@ public class WrapperFrame extends JWindow {
 	public WrapperFrame(PhysicalDisplay screen) {
 
 		this.screen = screen;
+		this.curves = new ArrayList<>();
 
 		// Configura el frame transparente
 		this.setBackground(new Color(0, 0, 0, 0));
@@ -39,6 +44,7 @@ public class WrapperFrame extends JWindow {
 		// Agrega wrapper para dibujar
 		this.wrapperPanel = new WrapperPanel(this);
 		this.setContentPane(wrapperPanel);
+		this.setVisible(true);
 
 		updateScreenSize();
 
@@ -64,27 +70,33 @@ public class WrapperFrame extends JWindow {
 		int x = (bounds.width - width) / 2;
 		int y = (bounds.height - height) / 2;
 
-		BezierCurve curve = new BezierCurve();
-		curve.add(new Point2d(x, y + height / 2));
-		curve.add(new Point2d(x + width / 4, y + height / 2));
-		curve.add(new Point2d(x + 3 * width / 4, y));
-		curve.add(new Point2d(x + width, y + height / 2));
-
 		// Dibuja los puntos de control
-		curve.getControlPoints().forEach(point -> {
+		curves.forEach(c -> c.getControlPoints().forEach(point -> {
 			g.setColor(Color.BLUE);
 			g.fillOval((int) point.x - 10, (int) point.y - 10, 20, 20);
-		});
+			
+			
+			
+			
+		}));
 
 		// Dibuja las curvas
 		g.setColor(Color.RED);
 		g.setStroke(new BasicStroke(3));
-		Point2d prev = curve.interpolate(0);
-		for (double t = 0; t <= 1.01; t += 0.01) {
-			Point2d current = curve.interpolate(t);
-			g.drawLine((int) prev.x, (int) prev.y, (int) current.x, (int) current.y);
-			prev = current;
-		}
+		
+		
+		curves.forEach(c -> c.getControlPoints().forEach(point -> {
+			
+			Point2d prev = c.interpolate(0);
+			for (double t = 0; t <= 1.01; t += 0.01) {
+				Point2d current = c.interpolate(t);
+				g.drawLine((int) prev.x, (int) prev.y, (int) current.x, (int) current.y);
+				prev = current;
+			}
+		}));
+		
+		
+		
 
 	}
 
